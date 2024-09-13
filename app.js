@@ -39,7 +39,19 @@ function createBinaryColumns(binaryNum) {
   binaryColsCopy.reverse();
   binaryColsCopy.length = binaryNum.length;
   binaryColsCopy.reverse();
+
   return binaryColsCopy;
+}
+
+function convertBinaryToDecimal(binaryNum, binaryColsCopy) {
+  let decimalNum = 0;
+  for (let i = 0; i < binaryNum.length; i++) {
+    if (binaryNum[i] === 1) {
+      decimalNum += binaryColsCopy[i];
+    }
+  }
+  console.log(decimalNum);
+  return decimalNum;
 }
 
 // Convertor functions
@@ -51,7 +63,7 @@ function binaryDecimal() {
   const binaryColsCopy = createBinaryColumns(binaryNum);
   console.log(`Convert to binary: ${binaryNum.join(``)}`);
 
-  const decimalNum = convertToDecimal(binaryNum, binaryColsCopy);
+  const decimalNum = convertBinaryToDecimal(binaryNum, binaryColsCopy);
   console.log(`Answer: ${decimalNum}`);
 }
 
@@ -81,8 +93,7 @@ function binaryHex() {
   // Create binary columns
   const binaryColsCopy = [];
   newBinaryNums.forEach((num) => {
-    const cols = createBinaryColumns(num);
-    binaryColsCopy.push(cols);
+    binaryColsCopy.push(createBinaryColumns(num));
   });
   console.log(binaryColsCopy);
 
