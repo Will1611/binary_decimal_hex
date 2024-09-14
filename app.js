@@ -1,6 +1,7 @@
 "use strict";
 
 const btnGen = document.querySelector(`.btn-generate`);
+const decimalMax = 65535;
 
 const binaryCols = [
   Math.pow(2, 15),
@@ -23,7 +24,6 @@ const binaryCols = [
 
 const hexValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"];
 
-// Number functions
 function createBinaryNumber() {
   const numBits = Math.floor(Math.random() * 16) + 1;
   let binaryNum = [];
@@ -50,11 +50,13 @@ function convertBinaryToDecimal(binaryNum, binaryColsCopy) {
       decimalNum += binaryColsCopy[i];
     }
   }
-  console.log(decimalNum);
   return decimalNum;
 }
 
-// Convertor functions
+function createDecimalNumber() {
+  return Math.floor(Math.random() * decimalMax) + 1;
+}
+
 function binaryDecimal() {
   console.log(`Binary to Decimal`);
 
@@ -70,12 +72,12 @@ function binaryDecimal() {
 function binaryHex() {
   console.log(`Binary to Hexadecimal`);
 
-  // Create binary number
+  // Generate binary number
   const binaryNum = createBinaryNumber();
   console.log(binaryNum);
 
   // Split binary number
-  let newBinaryNums = [];
+  const newBinaryNums = [];
   for (let i = binaryNum.length - 1; i >= 0; i--) {
     if (i % 4 === 0) {
       let newArr = [];
@@ -98,10 +100,28 @@ function binaryHex() {
   console.log(binaryColsCopy);
 
   // Convert to decimal
+  const decimalNums = [];
+  for (let i = 0; i < newBinaryNums.length; i++) {
+    decimalNums.push(
+      convertBinaryToDecimal(newBinaryNums[i], binaryColsCopy[i])
+    );
+  }
+  console.log(decimalNums);
+
+  // Convert to hex
+  const hexNum = [];
+  for (let i = 0; i < decimalNums.length; i++) {
+    console.log(decimalNums[i]);
+    hexNum.push();
+  }
+  console.log(hexNum);
 }
 
 function decimalBinary() {
   console.log(`Decimal to Binary`);
+  let decimalNum = createDecimalNumber();
+  let binaryColsCopy = binaryCols;
+  console.log(decimalNum);
 }
 function decimalHex() {
   console.log(`Decimal to Hexadecimal`);
