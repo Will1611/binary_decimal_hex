@@ -1,9 +1,6 @@
-// git test
-
 "use strict";
 
 const btnGen = document.querySelector(`.btn-generate`);
-const decimalMax = 65535;
 
 const binaryCols = [
   Math.pow(2, 15),
@@ -24,7 +21,7 @@ const binaryCols = [
   Math.pow(2, 0),
 ];
 
-const hexValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"];
+const hexValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"];
 
 function createBinaryNumber() {
   const numBits = Math.floor(Math.random() * 16) + 1;
@@ -32,6 +29,9 @@ function createBinaryNumber() {
   for (let i = 0; i < numBits; i++) {
     const bit = Math.floor(Math.random() * 2);
     binaryNum.push(bit);
+  }
+  if (!binaryNum.includes(1)) {
+    binaryNum.push(1);
   }
   return binaryNum;
 }
@@ -56,7 +56,7 @@ function convertBinaryToDecimal(binaryNum, binaryColsCopy) {
 }
 
 function createDecimalNumber() {
-  return Math.floor(Math.random() * decimalMax) + 1;
+  return Math.floor(Math.random() * 65535) + 1;
 }
 
 function binaryDecimal() {
@@ -111,8 +111,14 @@ function binaryHex() {
   const hexNum = [];
   for (let i = 0; i < decimalNums.length; i++) {
     if (decimalNums[i] !== 0) {
-      hexNum.push(hexValues[decimalNums[i] - 1]);
+      hexNum.push(hexValues[decimalNums[i]]);
     } else hexNum.push(0);
+  }
+
+  console.log(hexNum);
+
+  while (hexNum[hexNum.length - 1] === 0) {
+    hexNum.pop();
   }
   const answer = hexNum.reverse().join(``);
   console.log(`Answer is: ${answer}`);
