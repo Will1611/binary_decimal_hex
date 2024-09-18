@@ -123,18 +123,31 @@ function decimalBinary() {
 
   // Generate decimal number
   let decimalNum = createDecimalNumber();
-  console.log(binaryCols);
   console.log(`Convert to binary: ${decimalNum}`);
 
+  // Convert to binary
   const binaryNum = [];
   for (let col of binaryCols) {
     if (col <= decimalNum) {
-      console.log(`${decimalNum} - ${col} = ${(decimalNum -= col)}`, col);
-    }
+      decimalNum -= col;
+      binaryNum.push(1);
+    } else binaryNum.push(0);
   }
+
+  // Remove extra zeros
+  while (binaryNum[0] === 0) {
+    binaryNum.shift();
+  }
+
+  // Show answer
+  const answer = binaryNum.join(``);
+  console.log(`The answer is: ${answer}`);
 }
+
 function decimalHex() {
   console.log(`Decimal to Hexadecimal`);
+  let decimalNum = createDecimalNumber();
+  console.log(`Convert to hexadecimal: ${decimalNum}`);
 }
 function hexBinary() {
   console.log(`Hexadecimal to Binary`);
@@ -173,7 +186,7 @@ btnGen.addEventListener(`click`, () => {
   generateQuestion();
 });
 
-decimalBinary();
+decimalHex();
 
 // const showQuestion = document.querySelector(`.show-question`);
 
