@@ -1,3 +1,7 @@
+// Clear up variable declarations + add init() function
+// Optimize functions + add default parameters
+// Get rid of cols arrays and generate dynamically
+
 "use strict";
 
 const btnGen = document.querySelector(`.btn-generate`);
@@ -21,6 +25,15 @@ const binaryCols = [
   Math.pow(2, 0),
 ];
 
+const hexCols = [
+  Math.pow(16, 5),
+  Math.pow(16, 4),
+  Math.pow(16, 3),
+  Math.pow(16, 2),
+  Math.pow(16, 1),
+  Math.pow(16, 0),
+];
+
 const hexValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"];
 
 function createBinaryNumber() {
@@ -36,20 +49,41 @@ function createBinaryNumber() {
   return binaryNum;
 }
 
-function createBinaryColumns(binaryNum) {
+function createBinaryColumns(array) {
   let binaryColsCopy = Array.from(binaryCols);
   binaryColsCopy.reverse();
-  binaryColsCopy.length = binaryNum.length;
+  binaryColsCopy.length = array.length;
   binaryColsCopy.reverse();
 
   return binaryColsCopy;
 }
 
-function convertBinaryToDecimal(binaryNum, binaryColsCopy) {
+function createHexColumns(array) {
+  const hexColsCopy = Array.from(hexCols);
+  hexColsCopy.reverse();
+  hexColsCopy.length = array.length;
+  hexColsCopy.reverse();
+  return hexColsCopy;
+}
+
+function createDecimalNumber() {
+  return Math.floor(Math.random() * 65535) + 1;
+}
+
+function createHexNumber() {
+  const hexNum = [];
+  const numValues = Math.floor(Math.random() * 4) + 1;
+  for (let i = 1; i <= numValues; i++) {
+    hexNum.push(hexValues[Math.floor(Math.random() * 16)]);
+  }
+  return hexNum;
+}
+
+function convertBinaryToDecimal(array1, array2) {
   let decimalNum = 0;
-  for (let i = 0; i < binaryNum.length; i++) {
-    if (binaryNum[i] === 1) {
-      decimalNum += binaryColsCopy[i];
+  for (let i = 0; i < array1.length; i++) {
+    if (array1[i] === 1) {
+      decimalNum += array2[i];
     }
   }
   return decimalNum;
@@ -106,8 +140,15 @@ function convertBinaryToHex(array) {
   return hexNum;
 }
 
-function createDecimalNumber() {
-  return Math.floor(Math.random() * 65535) + 1;
+function convertHexToDecimal(array) {
+  let decimalConversion = [];
+  for (let value of array) {
+    if (typeof value === "string") {
+      value = Number(hexValues.indexOf(value));
+    }
+    decimalConversion.push(value);
+  }
+  return decimalConversion;
 }
 
 function binaryToDecimal() {
@@ -116,7 +157,7 @@ function binaryToDecimal() {
   const binaryNum = createBinaryNumber();
 
   const binaryColsCopy = createBinaryColumns(binaryNum);
-  console.log(`Convert to binary: ${binaryNum.join(``)}`);
+  console.log(`Convert to decimal: ${binaryNum.join(``)}`);
 
   const decimalNum = convertBinaryToDecimal(binaryNum, binaryColsCopy);
   console.log(`Answer: ${decimalNum}`);
@@ -171,9 +212,41 @@ function decimalToHex() {
 }
 function hexToBinary() {
   console.log(`Hexadecimal to Binary`);
+  const hexNum = createHexNumber();
+
+  console.log(`Convert to binary: ${hexNum.join(``)}`);
+
+  // Convert hex letters to decimal equivalents
+
+  //Create binary number
+  let binaryNum = [];
+  for (let i = 0; i < decimalConversion.length; i++) {
+    binaryNum.push(convertDecimalToBinary(decimalConversion[i]));
+    while (binaryNum[i][0] === 0 && binaryNum[i].length > 4) {
+      binaryNum[i].shift();
+    }
+  }
+
+  // Unpack binaryNum into single array
+  let answer = [];
+  for (let byte of binaryNum) {
+    answer.push(...byte);
+  }
+
+  // Show answer
+  console.log(`Answer is: ${answer.join(``)}`);
 }
 function hexToDecimal() {
   console.log(`Hexadecimal to Decimal`);
+  const hexNum = createHexNumber();
+
+  console.log(`Convert to decimal: ${hexNum.join(``)}`);
+  const decimalConversion = convertHexToDecimal(hexNum);
+
+  // Create hex columns
+  const hexColsCopy = createHexColumns(decimalConversion);
+  console.log(hexCols);
+  console.log(hexColsCopy);
 }
 
 function generateQuestion() {
@@ -206,7 +279,7 @@ btnGen.addEventListener(`click`, () => {
   generateQuestion();
 });
 
-decimalToHex();
+hexToDecimal();
 
 // const showQuestion = document.querySelector(`.show-question`);
 
