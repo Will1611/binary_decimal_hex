@@ -30,7 +30,6 @@ export function binaryToDecimal() {
 export function binaryToHex() {
   console.log(`Binary to Hexadecimal`);
 
-  // Generate binary number
   const binaryNum = createBinaryNumber();
   console.log(`Convert to hexadecimal: ${binaryNum.join(``)}`);
 
@@ -87,23 +86,19 @@ export function hexToBinary() {
   console.log(`Answer is: ${answer.join(``)}`);
 }
 
-// Fix hex 0 issue
 export function hexToDecimal() {
   console.log(`Hexadecimal to Decimal`);
   const hexNum = createHexNumber();
 
   console.log(`Convert to decimal: ${hexNum.join(``)}`);
   const decimalConversion = convertHexToDecimal(hexNum);
-  console.log(decimalConversion);
 
   const hexColsCopy = createHexColumns(decimalConversion);
-  console.log(hexColsCopy);
 
   let answerArray = [];
   for (let i = 0; i < decimalConversion.length; i++) {
     answerArray.push(decimalConversion[i] * hexColsCopy[i]);
   }
-  console.log(answerArray);
 
   const answer = answerArray.reduce((acc, curr) => {
     return acc + curr;

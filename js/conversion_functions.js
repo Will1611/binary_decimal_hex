@@ -26,7 +26,6 @@ export function convertDecimalToBinary(num) {
 }
 
 export function convertBinaryToHex(array) {
-  // Split binary number
   const newBinaryNums = [];
   for (let i = array.length - 1; i >= 0; i--) {
     if (i % 4 === 0) {
@@ -41,13 +40,11 @@ export function convertBinaryToHex(array) {
     } else continue;
   }
 
-  // Create binary columns
   const binaryColsCopy = [];
   newBinaryNums.forEach((num) => {
     binaryColsCopy.push(createBinaryColumns(num));
   });
 
-  // Convert to decimal
   const decimalNums = [];
   for (let i = 0; i < newBinaryNums.length; i++) {
     decimalNums.push(
@@ -55,7 +52,6 @@ export function convertBinaryToHex(array) {
     );
   }
 
-  // Convert to hex
   const hexNum = [];
   for (let i = 0; i < decimalNums.length; i++) {
     if (decimalNums[i] !== 0) {

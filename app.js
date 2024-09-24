@@ -45,8 +45,6 @@ btnGen.addEventListener(`click`, () => {
   generateQuestion();
 });
 
-hexToDecimal();
-
 // const showQuestion = document.querySelector(`.show-question`);
 
 // function appendQuestion(str, num) {
